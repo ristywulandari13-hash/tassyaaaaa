@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Undangan Ulang Tahun</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body onload="cekPassword()">
+
+    <!-- ================= HALAMAN 1 ================= -->
+    <div class="page" id="page1">
+        <div class="ornament-frame">
+            <div class="floral-top">❀ ✦ ❁ ✦ ❀</div>
+            <h1 class="header-title">Tassya</h1>
+            <p class="subtitle">Happy <br>Birthday</p>
+            <button onclick="goToPage(2)">Selanjutnya ➜</button>
+            <div class="floral-bottom">❀ ✦ ❁ ✦ ❀</div>
+        </div>
+    </div>
+
+    <!-- ================= HALAMAN 2 (GALERI FOTO + VIDEO) ================= -->
+    <div class="page" id="page2" style="display:none;">
+        <div class="container">
+            <h1 class="title">Happy Birthday Tsyaa</h1>
+
+            <div class="player">
+                <audio id="audioPlayer" src="lagu.mp3"></audio>
+                <button class="btn" onclick="playMusic()">▶ Play Musik</button>
+                <button class="btn" onclick="pauseMusic()">❚❚ Pause Musik</button>
+            </div>
+
+            <div class="slider">
+                <img id="slideImage" src="foto1.jpg" alt="Slide" />
+                <video id="slideVideo" controls style="display:none;">
+                    <source src="video1.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="controls">
+                <button class="btn" onclick="prevSlide()">⟵ Sebelumnya</button>
+                <button class="btn" onclick="nextSlide()">Selanjutnya ⟶</button>
+            </div>
+
+            <button onclick="goToPage(3)" class="btn last">Pencet ➜</button>
+        </div>
+    </div>
+
+    <!-- ================= HALAMAN 3 ================= -->
+    <div class="page" id="page3" style="display:none;">
+        <div class="ornament-frame">
+            <div class="floral-top">❀ ✦ ❁ ✦ ❀</div>
+            <h1 class="header-title">For you</h1>
+            <p class="subtitle">“Happy birthday, Tsyaa! Wishing you a year of becoming an even better person, may every prayer and hope be granted.<br>No more tears this year, okay? And maybe… just maybe… reduce the asbunnnnnnnnn a little. Wish you endless happiness!”</p>
+            <button onclick="goToPage(1)">Kembali ke Awal</button>
+            <div class="floral-bottom">❀ ✦ ❁ ✦ ❀</div>
+        </div>
+    </div>
+
+<script>
+    function cekPassword() {
+        let pw = prompt("passwordnya stopasb** :");
+        if (pw !== "stopasbun") {
+            alert("Password salah!");
+            location.reload();
+        }
+    }
+
+    function goToPage(num) {
+        document.getElementById("page1").style.display = "none";
+        document.getElementById("page2").style.display = "none";
+        document.getElementById("page3").style.display = "none";
+        document.getElementById("page" + num).style.display = "block";
+    }
+
+    const slides = [
+        { type: "image", src: "foto1.jpg" },
+        { type: "image", src: "foto2.jpg" },
+        { type: "image", src: "foto3.jpg" },
+        { type: "image", src: "foto4.jpg" },
+        { type: "image", src: "foto5.jpg" },
+        { type: "image", src: "foto6.jpg" },
+        { type: "image", src: "foto7.jpg" },
+        { type: "video", src: "video1.mp4" }
+    ];
+
+    let index = 0;
+
+    function showImage() {
+        const slide = slides[index];
+        const img = document.getElementById("slideImage");
+        const vid = document.getElementById("slideVideo");
+
+        if (slide.type === "image") {
+            vid.pause();
+            vid.style.display = "none";
+            img.style.display = "block";
+            img.src = slide.src;
+        } else {
+            img.style.display = "none";
+            vid.style.display = "block";
+            vid.src = slide.src;
+        }
+    }
+
+    function nextSlide() {
+        index = (index + 1) % slides.length;
+        showImage();
+    }
+
+    function prevSlide() {
+        index = (index - 1 + slides.length) % slides.length;
+        showImage();
+    }
+
+    function playMusic() {
+        document.getElementById("audioPlayer").play();
+    }
+
+    function pauseMusic() {
+        document.getElementById("audioPlayer").pause();
+    }
+</script>
+
+</body>
+</html>
